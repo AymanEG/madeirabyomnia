@@ -1,93 +1,34 @@
 backend:
   name: github
-  repo: YOUR-GITHUB-USERNAME/madeirabyomnia
+  repo: AymanEG/madeirabyomnia
   branch: main
 
 media_folder: public/images/listings
 public_folder: /images/listings
 
+# Decap CMS i18n: single-file strategy, all locales share the same fields/keys
+i18n:
+  structure: multiple_folders
+  locales: [en, pt, es, de, fr]
+  default_locale: en
+
 collections:
-  - name: listings_en
-    label: "Listings — English"
-    folder: src/content/en/listings
+  - name: listings
+    label: "Listings"
+    label_singular: "Listing"
+    i18n: true
+    folder: src/content
     create: true
     slug: "{{slug}}"
+    path: "{{locale}}/listings/{{slug}}"
     fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Price (€), name: price, widget: number }
-      - { label: Bedrooms, name: bedrooms, widget: number }
-      - { label: Bathrooms, name: bathrooms, widget: number }
-      - { label: Area (m²), name: area, widget: number }
-      - { label: Location, name: location, widget: string }
-      - { label: Featured image, name: image, widget: image }
-      - { label: Description, name: body, widget: markdown }
-      - { label: Featured, name: featured, widget: boolean, default: false }
-
-  - name: listings_pt
-    label: "Listings — Português"
-    folder: src/content/pt/listings
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: Título, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Preço (€), name: price, widget: number }
-      - { label: Quartos, name: bedrooms, widget: number }
-      - { label: Casas de banho, name: bathrooms, widget: number }
-      - { label: Área (m²), name: area, widget: number }
-      - { label: Localização, name: location, widget: string }
-      - { label: Imagem principal, name: image, widget: image }
-      - { label: Descrição, name: body, widget: markdown }
-      - { label: Destaque, name: featured, widget: boolean, default: false }
-
-  - name: listings_fr
-    label: "Listings — Français"
-    folder: src/content/fr/listings
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: Titre, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Prix (€), name: price, widget: number }
-      - { label: Chambres, name: bedrooms, widget: number }
-      - { label: Salles de bain, name: bathrooms, widget: number }
-      - { label: Surface (m²), name: area, widget: number }
-      - { label: Localisation, name: location, widget: string }
-      - { label: Image principale, name: image, widget: image }
-      - { label: Description, name: body, widget: markdown }
-      - { label: En vedette, name: featured, widget: boolean, default: false }
-
-  - name: listings_de
-    label: "Listings — Deutsch"
-    folder: src/content/de/listings
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: Titel, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Preis (€), name: price, widget: number }
-      - { label: Schlafzimmer, name: bedrooms, widget: number }
-      - { label: Badezimmer, name: bathrooms, widget: number }
-      - { label: Fläche (m²), name: area, widget: number }
-      - { label: Lage, name: location, widget: string }
-      - { label: Hauptbild, name: image, widget: image }
-      - { label: Beschreibung, name: body, widget: markdown }
-      - { label: Empfohlen, name: featured, widget: boolean, default: false }
-
-  - name: listings_es
-    label: "Listings — Español"
-    folder: src/content/es/listings
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: Título, name: title, widget: string }
-      - { label: Slug, name: slug, widget: string }
-      - { label: Precio (€), name: price, widget: number }
-      - { label: Dormitorios, name: bedrooms, widget: number }
-      - { label: Baños, name: bathrooms, widget: number }
-      - { label: Superficie (m²), name: area, widget: number }
-      - { label: Ubicación, name: location, widget: string }
-      - { label: Imagen principal, name: image, widget: image }
-      - { label: Descripción, name: body, widget: markdown }
-      - { label: Destacado, name: featured, widget: boolean, default: false }
+      - { label: Title, name: title, widget: string, i18n: true }
+      - { label: Slug, name: slug, widget: string, i18n: duplicate }
+      - { label: "Price (€)", name: price, widget: number, i18n: duplicate }
+      - { label: Bedrooms, name: bedrooms, widget: number, i18n: duplicate }
+      - { label: Bathrooms, name: bathrooms, widget: number, i18n: duplicate }
+      - { label: "Area (m²)", name: area, widget: number, i18n: duplicate }
+      - { label: Location, name: location, widget: string, i18n: true }
+      - { label: Featured Image, name: image, widget: image, i18n: duplicate }
+      - { label: Description, name: body, widget: markdown, i18n: true }
+      - { label: Featured, name: featured, widget: boolean, default: false, i18n: duplicate }

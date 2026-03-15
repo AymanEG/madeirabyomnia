@@ -1,7 +1,6 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
-
-const lang = getLangFromUrl(Astro.url);
+import { useTranslations } from '../../i18n/utils';
+const lang = 'pt';
 const t = useTranslations(lang);
 ---
 
@@ -17,8 +16,8 @@ const t = useTranslations(lang);
   </head>
   <body>
     <nav>
-      <a href="/">{t('nav.home')}</a>
-      <a href="/listings">{t('nav.listings')}</a>
+      <a href="/pt">{t('nav.home')}</a>
+      <a href="/pt/listings">{t('nav.listings')}</a>
     </nav>
     <main>
       <h1>{t('listings.title')}</h1>

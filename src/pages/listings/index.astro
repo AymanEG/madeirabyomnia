@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import { useTranslations } from '../../i18n/utils';
+
+const lang = 'en';
+const t = useTranslations(lang);
+const listings = await getCollection('en-listings');
+---
+
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{t('listings.title')} — Madeira by Omnia</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">{t('nav.home')}</a>
+      <a href="/listings">{t('nav.listings')}</a>
+    </nav>
+    <main>
+      <h1>{t('listings.title')}</h1>
+      {listings.length === 0 && <p>{t('listings.noListings')}</p>}
+      <ul>
+        {listings.map((listing) => (
+          <li>
+            <a href={`/listings/${listing.data.slug}`}>
+              <strong>{listing.data.title}</strong>
+              <span>{t('listings.price')}: {listing.data.price}{t('listings.currency')}</span>
+              <span>{listing.data.bedrooms} {t('listings.bedrooms')} · {listing.data.bathrooms} {t('listings.bathrooms')} · {listing.data.area}{t('listings.area_unit')}</span>
+              <span>{listing.data.location}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </main>
+  </body>
+</html>

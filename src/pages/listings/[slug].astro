@@ -1,0 +1,44 @@
+---
+import { getCollection, render } from 'astro:content';
+import { useTranslations } from '../../i18n/utils';
+
+export async function getStaticPaths() {
+  const listings = await getCollection('en-listings');
+  return listings.map((listing) => ({
+    params: { slug: listing.data.slug },
+    props: { listing },
+  }));
+}
+
+const lang = 'en';
+const t = useTranslations(lang);
+const { listing } = Astro.props;
+const { Content } = await render(listing);
+---
+
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{listing.data.title} — Madeira by Omnia</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">{t('nav.home')}</a>
+      <a href="/listings">{t('nav.listings')}</a>
+    </nav>
+    <main>
+      {listing.data.image && <img src={listing.data.image} alt={listing.data.title} />}
+      <h1>{listing.data.title}</h1>
+      {listing.data.featured && <span>{t('listings.featured_badge')}</span>}
+      <p>{t('listings.price')}: {listing.data.price}{t('listings.currency')}</p>
+      <p>{t('listings.bedrooms')}: {listing.data.bedrooms}</p>
+      <p>{t('listings.bathrooms')}: {listing.data.bathrooms}</p>
+      <p>{t('listings.area')}: {listing.data.area}{t('listings.area_unit')}</p>
+      <p>{t('listings.location')}: {listing.data.location}</p>
+      <Content />
+    </main>
+  </body>
+</html>
